@@ -1,8 +1,11 @@
 import React from 'react'
+import Qna from './components/Qna'
 
 const App = () => {
   return (
-    <div>App</div>
+    <div>
+      <Qna />
+    </div>
   )
 }
 
