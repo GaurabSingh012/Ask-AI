@@ -8,41 +8,38 @@ const Qna = () => {
   const [answers, setAnswers] = useState<{ text: string; score: number; confidence?: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isModelReady, setIsModelReady] = useState(false);
+  const [modelError, setModelError] = useState<string | null>(null);
 
-  // 1. Ref to hold the model instance without triggering re-renders
   const modelRef = useRef<qna.QuestionAndAnswer | null>(null);
 
-  // 2. Load model exactly once when component mounts
   useEffect(() => {
     const loadModel = async () => {
       try {
         modelRef.current = await qna.load();
+        setIsModelReady(true);
       } catch (err) {
-        console.error("Failed to load QnA model:", err);
+        console.error(err);
+        setModelError("Failed to initialize AI model. Your device may lack WebGL support.");
       }
     };
     loadModel();
   }, []);
 
   const handleAnswer = async () => {
-    // Guard clause to prevent execution if model isn't ready
-    if (!modelRef.current) {
-      setError("Model is still loading. Please wait a moment.");
-      return;
-    }
+    if (!modelRef.current) return;
+
     if (!question.trim() || !context.trim()) {
       setError("Context and Question are required.");
       return;
     }
-    
+
     setError(null);
     setLoading(true);
 
     try {
-      // 3. Inference using the pre-loaded ref
       const results = await modelRef.current.findAnswers(question, context);
 
-      // FIX: Explicitly set an error message when no answers are found
       if (results.length === 0) {
         setAnswers([]);
         setError("Could not find a relevant answer in the provided context.");
@@ -60,7 +57,7 @@ const Qna = () => {
 
       setAnswers(processed);
     } catch (err) {
-      setError("Failed to get answers.");
+      setError("Inference failed.");
       console.error(err);
     }
     setLoading(false);
@@ -90,15 +87,25 @@ const Qna = () => {
 
       <button
         onClick={handleAnswer}
-        disabled={loading}
+        disabled={!isModelReady || loading}
         className={`w-full py-2 rounded-lg text-white transition ${
-          loading
+          !isModelReady || loading
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-blue-500 hover:bg-blue-600"
         }`}
       >
-        {loading ? "Thinking..." : "Get Answers"}
+        {!isModelReady
+          ? "Downloading AI Model (45MB)..."
+          : loading
+          ? "Analyzing text..."
+          : "Get Answers"}
       </button>
+
+      {modelError && (
+        <div className="text-red-600 font-semibold mt-2 text-center bg-red-50 p-2 rounded-md border border-red-200">
+          {modelError}
+        </div>
+      )}
 
       {error && (
         <div className="text-red-600 font-semibold mt-2 text-center bg-red-50 p-2 rounded-md border border-red-200">
