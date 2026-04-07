@@ -12,11 +12,10 @@ By executing the ML model directly in the browser, Ask-AI ensures **100% data pr
 
 **👉 [Try the Live Application Here](https://gaurabsingh012.github.io/Ask-AI/)**
 
-## 📸 Previews
+## 📸 Preview
 
 ![Ask-AI Main UI](./public/screenshot-main.png)
-*Caption: The main UI analyzing a custom passage of text.*
-scores.*
+
 
 ## ✨ Key Features
 
