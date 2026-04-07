@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as qna from "@tensorflow-models/qna";
 import "@tensorflow/tfjs";
 
