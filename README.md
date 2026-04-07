@@ -10,16 +10,13 @@ Ask-AI is a browser-based Question and Answer application. It leverages TensorFl
 
 By executing the ML model directly in the browser, Ask-AI ensures **100% data privacy**—no text or context is ever sent to an external server.
 
-** [Try the Live Application Here](https://gaurabsingh012.github.io/Ask-AI/)**
+**👉 [Try the Live Application Here](https://gaurabsingh012.github.io/Ask-AI/)**
 
 ## 📸 Previews
 
-> **Note:** Update the image paths below with the actual paths to your uploaded screenshots.
-
 ![Ask-AI Main UI](./public/screenshot-main.png)
 *Caption: The main UI analyzing a custom passage of text.*
-
-
+scores.*
 
 ## ✨ Key Features
 
