@@ -66,7 +66,7 @@ const Qna = () => {
   return (
     <div className="max-w-xl mx-auto p-6 mt-10 bg-white shadow-xl rounded-2xl space-y-4">
       <h1 className="text-2xl font-bold text-center text-blue-600">
-        Question and Answer
+        Enter Your Paragraph and Question
       </h1>
 
       <textarea
@@ -95,7 +95,7 @@ const Qna = () => {
         }`}
       >
         {!isModelReady
-          ? "Downloading AI Model (45MB)..."
+          ? "Wait: Downloading AI Model (45MB)..."
           : loading
           ? "Analyzing text..."
           : "Get Answers"}
