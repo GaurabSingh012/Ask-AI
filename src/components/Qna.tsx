@@ -42,8 +42,10 @@ const Qna = () => {
       // 3. Inference using the pre-loaded ref
       const results = await modelRef.current.findAnswers(question, context);
 
+      // FIX: Explicitly set an error message when no answers are found
       if (results.length === 0) {
         setAnswers([]);
+        setError("Could not find a relevant answer in the provided context.");
         setLoading(false);
         return;
       }
@@ -99,7 +101,7 @@ const Qna = () => {
       </button>
 
       {error && (
-        <div className="text-red-600 font-semibold mt-2 text-center">
+        <div className="text-red-600 font-semibold mt-2 text-center bg-red-50 p-2 rounded-md border border-red-200">
           {error}
         </div>
       )}
